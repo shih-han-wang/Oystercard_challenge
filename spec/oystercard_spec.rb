@@ -8,9 +8,15 @@ describe Oystercard do
     end
 
     describe '#top-up' do
+
       it 'Should allow the user to top up the value on the oyster card by £5' do
         a_oystercard.top_up(5.00)
         expect(a_oystercard.balance).to eq 5.00
+      end
+
+      it 'Should not allow the user to top up the value past the maximum of £90' do
+        a_oystercard.top_up(70)
+        expect { a_oystercard.top_up(21) }.to raise_error "Cannot top up past maximum value of £90"
       end
     end
 
