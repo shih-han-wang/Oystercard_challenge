@@ -21,7 +21,7 @@ describe Oystercard do
 
     it 'Should not allow the user to top up the value past the maximum of £90' do
       a_oystercard.top_up(70)
-      expect{a_oystercard.top_up(21)}.to raise_error 'Cannot top up past maximum value of £90'
+      expect { a_oystercard.top_up(21) }.to raise_error 'Cannot top up past maximum value of £90'
     end
   end
 
@@ -31,13 +31,13 @@ describe Oystercard do
   #     a_oystercard.top_up(80)
   #     expect{a_oystercard.deduct 3}.to change{a_oystercard.balance}.by -3
   #   end
-  # 
+  #
   # end
 
   describe '#touch_in' do
 
     it 'Should raise an error when user touch in with balance less than minimum amount' do
-      expect{a_oystercard.touch_in}.to raise_error 'The minimum amount for a single journey is £1'
+      expect { a_oystercard.touch_in }.to raise_error 'The minimum amount for a single journey is £1'
     end
   end
 
@@ -45,7 +45,7 @@ describe Oystercard do
 
     it 'Should deduct the fare when touch out' do
       b_oystercard.touch_in
-      expect{b_oystercard.touch_out}.to change { b_oystercard.balance }.by -Oystercard::CHARGE
+      expect { b_oystercard.touch_out }.to change { b_oystercard.balance }.by -Oystercard::CHARGE
     end
   end
 
@@ -66,6 +66,5 @@ describe Oystercard do
       expect(b_oystercard).not_to be_in_journey
     end
   end
-
 
 end
