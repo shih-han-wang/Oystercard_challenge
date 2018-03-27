@@ -20,10 +20,21 @@ describe Oystercard do
     end
   end
 
+  describe '#deduct' do
+
+    it 'Should deduct the fare from the balance' do
+      a_oystercard.top_up(80)
+      a_oystercard.deduct(2)
+      expect(a_oystercard.balance).to eq 78
+    end
+  end
+
   subject(:b_oystercard) { described_class.new(5.00) }
 
   it 'Should create an instance (passed starting balance of 5.00) with 5.00 balance' do
     expect(b_oystercard.balance).to eq 5.00
   end
+
+
 
 end

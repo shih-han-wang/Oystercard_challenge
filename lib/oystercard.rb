@@ -14,4 +14,8 @@ class Oystercard
     raise max_balance_error if (@balance + amount) > MAXIMUM_BALANCE
     @balance += amount
   end
+
+  def deduct(fare)
+    @balance -= fare
+  end
 end
