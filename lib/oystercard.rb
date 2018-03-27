@@ -4,6 +4,7 @@ class Oystercard
 
   DEFAULT_BALANCE = 0.00
   MAXIMUM_BALANCE = 90.00
+  MINIMUM_AMOUNT = 1.00
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
@@ -21,6 +22,8 @@ class Oystercard
   end
 
   def touch_in
+    minimum_amount_error = "The minimum amount for a single journey is £1"
+    raise minimum_amount_error if @balance < MINIMUM_AMOUNT
     @in_journey = true
   end
 
