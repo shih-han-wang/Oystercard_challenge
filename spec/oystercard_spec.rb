@@ -17,6 +17,7 @@ describe Oystercard do
     it 'Should not allow the user to top up the value past the maximum of £90' do
       a_oystercard.top_up(70)
       expect { a_oystercard.top_up(21) }.to raise_error "Cannot top up past maximum value of £90"
+
     end
   end
 
@@ -28,6 +29,24 @@ describe Oystercard do
       expect(a_oystercard.balance).to eq 78
     end
   end
+
+  describe '#in_journey?' do
+
+    it 'Initially should not in journey' do
+      expect(a_oystercard).not_to be_in_journey
+    end
+
+    it 'Should be in journey after touch in' do
+      a_oystercard.touch_in
+      expect(a_oystercard).to be_in_journey
+    end
+
+    it 'Should not be in journey after touch out' do
+      a_oystercard.touch_in
+      a_oystercard.touch_out
+      expect(a_oystercard).not_to be_in_journey 
+    end
+      end
 
   subject(:b_oystercard) { described_class.new(5.00) }
 
