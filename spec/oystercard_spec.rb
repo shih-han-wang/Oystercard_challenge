@@ -12,8 +12,7 @@ describe Oystercard do
   it 'Should create an instance (passed starting balance of 5.00) with 5.00 balance' do
     expect(b_oystercard.balance).to eq 5.00
   end
-  
-  it 'Should be initialized with no history' do
+    it 'Should be initialized with no history' do
     expect(subject.history).to be_empty
   end
 
@@ -62,8 +61,7 @@ describe Oystercard do
       b_oystercard.touch_out station
       expect(b_oystercard.entry_station).to be_nil
     end
-    
-    it 'should create one journey after touch-out' do
+        it 'should create one journey after touch-out' do
       exit_station = double(:exit_station)
       b_oystercard.touch_in station
       b_oystercard.touch_out exit_station

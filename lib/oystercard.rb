@@ -1,3 +1,6 @@
+require 'station'
+require 'journey'
+
 class Oystercard
   attr_reader :balance, :entry_station, :history
 
@@ -18,7 +21,7 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(station)
+  def touch_in(station = Station.new)
     minimum_amount_error = 'The minimum amount for a single journey is £1'
     raise minimum_amount_error if less_minimum?
     @entry_station = station
