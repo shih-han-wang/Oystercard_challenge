@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
   subject(:a_oystercard) { described_class.new }
   subject(:b_oystercard) { described_class.new(5.00) }
+  let(:station){double :station}
 
   it 'Should create an instance (passed no arguments) with a default balance of 0' do
     expect(a_oystercard.balance).to eq 0.00
@@ -35,17 +36,27 @@ describe Oystercard do
   # end
 
   describe '#touch_in' do
-
     it 'Should raise an error when user touch in with balance less than minimum amount' do
-      expect { a_oystercard.touch_in }.to raise_error 'The minimum amount for a single journey is £1'
+      expect { a_oystercard.touch_in(station) }.to raise_error 'The minimum amount for a single journey is £1'
+    end
+
+    it 'Should remember the entry station after touch in' do
+      b_oystercard.touch_in(station)
+      expect(b_oystercard.entry_station).to eq station
     end
   end
 
   describe '#touch_out' do
 
     it 'Should deduct the fare when touch out' do
-      b_oystercard.touch_in
+      b_oystercard.touch_in(station)
       expect { b_oystercard.touch_out }.to change { b_oystercard.balance }.by -Oystercard::CHARGE
+    end
+
+    it 'Should return nil for entry station after touch out' do
+      b_oystercard.touch_in(station)
+      b_oystercard.touch_out
+      expect(b_oystercard.entry_station).to be_nil
     end
   end
 
@@ -56,12 +67,12 @@ describe Oystercard do
     end
 
     it 'Should be in journey after touch in' do
-      b_oystercard.touch_in
+      b_oystercard.touch_in(station)
       expect(b_oystercard).to be_in_journey
     end
 
     it 'Should not be in journey after touch out' do
-      b_oystercard.touch_in
+      b_oystercard.touch_in(station)
       b_oystercard.touch_out
       expect(b_oystercard).not_to be_in_journey
     end
